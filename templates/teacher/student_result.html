@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% extends 'teacher/teacherbase.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <title>Student Results</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Student Results</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Exam</th>
+                    <th>Marks</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.student.first_name }} {{ result.student.last_name }}</td>
+                    <td>{{ result.exam.course_name }}</td>
+                    <td>{{ result.marks }}</td>
+                    <td>{{ result.date }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No results available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <!--
+        <div class="d-flex justify-content-center">
+            <div>
+                {% if results.has_previous %}
+                <a class="btn btn-primary" href="?page=1">&laquo; First</a>
+                <a class="btn btn-primary" href="?page={{ results.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ results.number }} of {{ results.paginator.num_pages }}</span>
+
+                {% if results.has_next %}
+                <a class="btn btn-primary" href="?page={{ results.next_page_number }}">Next</a>
+                <a class="btn btn-primary" href="?page={{ results.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+        -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.bundle.min.js"></script>
+</body>
+{%endblock content%}
+</html>

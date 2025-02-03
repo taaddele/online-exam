@@ -1,0 +1,59 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+<html>
+    <head>
+<style>
+    .form-group label .asteriskField {
+        display: none;
+        /* Hides the asterisk */
+    }
+</style>
+</head>
+<body>
+    
+
+<div class="container">
+    {% if message %}
+    <h2 style="color: chartreuse;">{{ message }}</h2>
+    {% else %}
+    <h2>Update Course</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-3">
+                {{ form.course_name|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.number_of_questions|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{ form.total_marks|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.time_duration|as_crispy_field }}
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{ form.exam_password|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.password_confirmation|as_crispy_field }}
+            </div>
+        </div>
+
+        <div style="margin-left: 150px;">
+            <button type="submit" class="btn btn-primary btn-lg rounded" style="border-radius: 0%;">Submit</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Answers</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Student Answers</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Student Name</th>
+
+                    <th>Question</th>
+                    <th>Selected Answer</th>
+                    <th>correct answer Answer</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for answer in students %}
+                <tr>
+                    <td>{{ answer.question.course }}</td>
+                    <td>{{ answer.student.first_name }} {{ answer.student.last_name }}</td>
+                    <td>{{ answer.question.question }}</td> <!-- Assuming `question.text` exists -->
+                    <td>{{ answer.selected_answer }}</td>
+                    <td>{{ answer.question.get_answer_text }}</td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No answers available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+{%endblock content%}
+
+</html>

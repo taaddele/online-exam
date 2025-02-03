@@ -1,0 +1,51 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+<h2>Add student</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-3">
+            {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="col-3">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            {{ form.email|as_crispy_field }}
+        </div>
+        <div class="col-3">
+            {{ form.id_no|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            {{ form.sex|as_crispy_field }}
+        </div>
+        <div class="col-3">
+            {{ form.departement|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            {{ form.password1|as_crispy_field }}
+        </div>
+        <div class="col-3">
+            {{ form.password2|as_crispy_field }}
+        </div>
+    </div>
+
+
+    <div style="margin-left: 150px;">
+        <button type="submit" class="btn btn-primary btn-lg rounded" style="border-radius: 0%;">Submit</button>
+    </div>
+
+
+</form>
+</div>
+{% endblock %}

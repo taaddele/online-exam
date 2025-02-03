@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <style>
+
+        form{
+           margin: 50px; 
+          
+        }
+
+    </style>
+  </head>
+  <body>
+    {% include "exam/navbar.html" %}
+ 
+
+
+<br><br><br>
+<div class="container">
+  <h3 style="text-align: center;">Teacher Signup Form</h3>
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="first_name">First Name</label>
+          {% render_field userForm.first_name|attr:'required:true'  class="form-control form-control-sm rounded-0"  placeholder="First Name" %}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="last_name">Last Name</label>
+          {% render_field userForm.last_name|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Last Name" %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          {% render_field userForm.email|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Email" %}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="address">Id </label>
+          {% render_field userForm.id_no|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Id no" %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="username">Sex</label>
+          {% render_field userForm.sex|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="sex" %}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="username">Departement</label>
+          {% render_field userForm.departement|attr:'required:true' class="form-control form-control-sm rounded-0" placeholder="Departement" %}
+        </div>
+        
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Password</label>
+          {% render_field userForm.password1|attr:'required:true' class="form-control form-control-sm rounded-0" placeholder="password" %}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="password2">confirm password</label>
+          {% render_field userForm.password2|attr:'required:true' class="form-control form-control-sm rounded-0" placeholder="confirm password" %}
+        </div>
+        
+      </div>
+
+
+    <button type="submit" class="btn btn-primary btn-lg rounded-0">Sign Up</button>
+  </form>
+</div>
+
+
+<br><br>
+{% include "exam/footer.html" %}
+  </body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+
+
+        .row {
+            margin: 100px;
+        }
+        .container{
+            height: 55%;
+        }
+    </style>
+</head>
+<br>
+<div class="container">
+    <h2>view student result</h2>
+    <div class="float-center">
+        <form method="GET" class="form-inline ">
+            {{ search_form.as_table }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+        <thead>
+            <tr>
+                <th>ID No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if message %}
+            <tr>
+                <td colspan="5" class="text-center text-danger">{{ message }}</td>
+            </tr>
+            {% else %}
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id_no }}</td>
+                <td>{{ student.first_name }}</td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.departement }}</td>
+                <td class="text-center">
+                    <a class="btn btn-danger btn-xs" style="border-radius: 0%;"
+                    href="{% url 'view-student-answer' student.id_no  %}">view answer</a>
+                    <a class="btn btn-danger btn-xs" style="border-radius: 0%;" 
+                    href="{% url 'view-student-results' student.id_no  %}">view result</a>
+                </td>
+                
+            </tr>
+            {% endfor %}
+            {%endif%}
+        </tbody>
+    </table>
+
+</div>
+{% endblock content %}

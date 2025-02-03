@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        {% include 'exam/navbar.html'%}
+        
+        <br><br><br><br>
+        {% block content %}
+        <h2 class="text-center">create account</h2>
+        <form method="post" >
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="col-3">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    {{ form.email|as_crispy_field }}
+                </div>
+                <div class="col-3">
+                    {{ form.id_no|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    {{ form.sex|as_crispy_field }}
+                </div>
+                <div class="col-3">
+                    {{ form.departement|as_crispy_field }}
+                </div>
+            </div>
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        {{ form.password1|as_crispy_field }}
+                    </div>
+                    <div class="col-3">
+                        {{ form.password2|as_crispy_field }}
+                    </div>
+                </div>
+             <p class="text-center">do have an account? <a href="studentlogin">login</a></p>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-success justify-content-center" value="signup">Sign Up</button>
+            </div>
+          
+         
+        </form>
+        {% endblock %}
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        
+        {% include 'exam/footer.html' %}
+    </body>
+</html>

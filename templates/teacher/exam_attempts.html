@@ -1,0 +1,47 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+<html>
+    <head>
+      <style>
+        .container{
+            height: 55%;
+        }
+      </style>
+    </head>
+
+
+<div class="container">
+    <h2>Exam Attempts</h2>
+
+    <!-- Display the list of exam attempts -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Course</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attempt in exam_attempts %}
+            <tr>
+                <td>{{ attempt.user.first_name }} {{ attempt.user.last_name }}</td>
+                <td>{{ attempt.course.course_name }}</td>
+                <td>{{ attempt.start_time }}</td>
+                <td>{{ attempt.end_time }}</td>
+                <td>
+                    <!-- Delete Button -->
+                    <a href="{% url 'delete_exam_attempt' attempt.pk %}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this attempt?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</html>
+{% endblock %}

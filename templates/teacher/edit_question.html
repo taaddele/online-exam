@@ -1,0 +1,44 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" style="margin-top: 0;">
+    {% if message %}
+    <h2 style="color: chartreuse;">{{ message }}</h2>
+    {% else %}
+    <h2>Update Question</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Iterate through form fields -->
+        {% for field in form %}
+        <div class="row mb-1 align-items-center">
+            <div class="col-md-1 text-end">
+                <!-- Adjust label margin -->
+                <label class="form-label">{{ field.label }}</label>
+            </div>
+            <div class="col-md-6">
+                <!-- Adjust input margin -->
+                {{ field|add_class:"form-control" }}
+                {% if field.errors %}
+                <div class="text-danger small">
+                    {{ field.errors|join:", " }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="row mb-1 align-items-center">
+            <div class="col-md-5 text-center">
+                <button type="submit" class="btn btn-primary btn-lg rounded" style="border-radius: 0%; margin-top: 10px;">Submit</button>
+            </div>
+            
+        </div>
+    </form>
+</div>
+
+{% endblock %}

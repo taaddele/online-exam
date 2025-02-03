@@ -1,0 +1,105 @@
+{% extends 'student/studentbase.html' %} {% block content %} {%load static%}
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+</head>
+
+
+<div class="jumbotron my-4">
+    <div class="text-right" >
+         <button class="timer"><center>Time left: <span id="timer"></span></button></center>
+     </div> 
+    <form class="form" id="quiz" autocomplete="off" method="POST"  action="/student/calculate-marks"  >
+        {% csrf_token %}
+        <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
+        <!-- Add a hidden input for the course ID -->
+        <input type="hidden" name="pk" value="{{ course.id }}">
+        {% for q in questions%}
+        <div class="d-flex w-100 align-items-center">
+            <div class="col-auto flex-shrink-1 flex-grow-1">
+                <h3 class="">{{ forloop.counter }}. {{q.question}}</h3>
+            </div>
+            <div class="col-auto">
+                <h4 style="text-align: right;">[{{q.marks}} Marks]</h4>
+            </div>
+        </div>
+
+
+        <div class="form-check mx-4 d-flex align-items-center">
+            <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="question_{{ q.id }}_option1" value="{{ q.option1 }}">
+            <label class="form-check-label ml-3" for="question_{{ q.id }}_option1">
+              {{q.option1}}
+            </label>
+        </div>
+
+
+        <div class="form-check mx-4 d-flex align-items-center">
+            <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="question_{{ q.id }}_option2" value="{{ q.option2 }}">
+            <label class="form-check-label ml-3" for="question_{{ q.id }}_option2" >
+              {{q.option2}}
+            </label>
+        </div>
+
+
+        <div class="form-check mx-4 d-flex align-items-center">
+            <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="question_{{ q.id }}_option3" value="{{ q.option3 }}">
+            <label class="form-check-label ml-3" for="question_{{ q.id }}_option3">
+              {{q.option3}}
+            </label>
+        </div>
+
+
+        <div class="form-check mx-4 d-flex align-items-center">
+            <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="question_{{ q.id }}_option4" value="{{ q.option4 }}">
+            <label class="form-check-label ml-3" for="question_{{ q.id }}_option4">
+              {{q.option4}}
+            </label>
+        </div>
+
+        {% endfor %}
+        <input class="btn btn-primary btn-lg" style="border-radius: 0%;" type="submit" value="Submit Answers"><br>
+        <button class="btn btn-danger">go back</button>
+    </form>
+</div>
+
+<script>
+ function startTimer(remainingTime) {
+        var countdownElement = document.getElementById('timer');
+        var interval = setInterval(function () {
+            var hours = Math.floor(remainingTime / 3600);
+            var minutes = Math.floor((remainingTime % 3600) / 60);
+            var seconds = Math.floor(remainingTime % 60);
+            var formattedTime = hours.toString().padStart(2, '0') + ":" +
+                minutes.toString().padStart(2, '0') + ":" +
+                seconds.toString().padStart(2, '0');
+            countdownElement.innerHTML = formattedTime;
+
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "Time is up!";
+
+                // Trigger form submission
+                submitExamAnswers();
+            }
+
+            remainingTime--;
+        }, 1000); // update every second
+    }
+
+    function submitExamAnswers() {
+        // Find the form element and submit it
+        var examForm = document.getElementById('quiz'); 
+        examForm.submit();
+    }
+
+    // Get initial remaining time from the server-side template variable
+    var initialRemainingTime = "{{ remaining_time }}";
+    startTimer(initialRemainingTime);
+
+</script>
+
+<br><br><br><br><br><br> {% endblock content %}

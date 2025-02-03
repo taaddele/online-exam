@@ -1,0 +1,22 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+<div class="container" style="height: 50%;">
+    
+    <h2>Enter Exam Password</h2><br>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exam_password" style="display: inline-block; width: 125px; margin-right: 5px;">Exam Password:</label>
+            <input type="password" style="display: inline-block; width: 300px;" id="exam_password" name="exam_password"
+                class="form-control" required>
+        </div>
+
+
+        {% if message %}
+        <p style="color: rgb(255, 0, 0);">{{ message }}</p>
+        {% endif %}
+        <button type="submit" class="btn btn-primary" style="margin-left: 130px;">Start Exam</button>
+    </form>
+    
+</div>
+{% endblock %}
