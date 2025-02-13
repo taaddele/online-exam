@@ -9,6 +9,9 @@ class Course(models.Model):
    total_marks = models.PositiveIntegerField(default=None)
    time_duration = models.PositiveIntegerField(default=None)
    exam_password = models.CharField(max_length=20, null=True, blank=True)  # Field for exam password
+   class Meta:
+       verbose_name = "course"
+    
    def __str__(self): 
         return self.course_name
 class Question(models.Model):
@@ -43,6 +46,7 @@ class Result(models.Model):
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
     class Meta:
+        verbose_name = "result"
         unique_together = ('student', 'exam')
     def __str__(self):
         return self.student.first_name
@@ -51,6 +55,8 @@ class ExamAttempt(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null = True, blank=True)
+    class Meta:
+        verbose_name = 'ExamAttempt'
     def __str__(self):
         return self.user.first_name
 # student answer stored in this class
@@ -58,6 +64,8 @@ class StudentAnswer(models.Model):
     student = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     selected_answer = models.CharField(max_length=700)
+    class Meta:
+        verbose_name = 'student Answers'
     def __str__(self):
         return self.student.first_name
 

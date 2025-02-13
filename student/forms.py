@@ -12,7 +12,23 @@ from django.contrib.auth.forms import UserCreationForm
 class StudentUserForm(UserCreationForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
+    DEPARTMENT_CHOICES = [
+        ('computer science', 'Computer Science'),
+        ('information technology', 'Information Technology'),
+        
+        ('software engineering', 'Software Engineering'),
+        ('information system', 'Information System'),
+        ('civil engineering', 'Civil Engineering'),
+        ('mechanical engineering', 'Mechanical Engineering'),
+        ('hydraulics engineering', 'Hydraulics Engineering'),
+        ('social science', 'Social Science'),
+        ('natural science', 'Natural Science'),
+        ('health science', 'Health Science'),
 
+        # Add more as needed
+    ]
+
+    departement = forms.ChoiceField(choices=DEPARTMENT_CHOICES, widget=forms.Select())
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(
         label="Password confirmation", widget=forms.PasswordInput

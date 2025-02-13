@@ -12,7 +12,23 @@ from django.contrib.auth.forms import UserCreationForm
 class TeacherUserForm(UserCreationForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
+    DEPARTMENT_CHOICES = [
+        ('computer science', 'Computer Science'),
+        ('information technology', 'Information Technology'),
+        
+        ('software engineering', 'Software Engineering'),
+        ('information system', 'Information System'),
+        ('civil engineering', 'Civil Engineering'),
+        ('mechanical engineering', 'Mechanical Engineering'),
+        ('hydraulics engineering', 'Hydraulics Engineering'),
+        ('social science', 'Social Science'),
+        ('natural science', 'Natural Science'),
+        ('health science', 'Health Science'),
 
+        # Add more as needed
+    ]
+
+    departement = forms.ChoiceField(choices=DEPARTMENT_CHOICES, widget=forms.Select())
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(
         label="Password confirmation", widget=forms.PasswordInput
@@ -20,7 +36,8 @@ class TeacherUserForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ["first_name","last_name","email","is_staff","id_no","sex","departement"]
+        fields = ["first_name","last_name","email","id_no","sex","departement"]
+
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
@@ -37,6 +54,7 @@ class TeacherUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
 
 
 class UserChangeForm(UserCreationForm):

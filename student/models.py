@@ -11,7 +11,10 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-    def create_superuser(self,id_no, password=None, **extra_fields):
+    def create_superuser(self, id_no, password=None, first_name=None, last_name=None, **extra_fields):
+        if not first_name or not last_name:
+            raise ValueError("Superuser must have a first name and last name.")
+        
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -20,7 +23,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(id_no, password, **extra_fields)
+        return self.create_user(id_no, password, first_name=first_name, last_name=last_name, **extra_fields)
 # custom user model
 choices= {
     "M": "Male",
@@ -40,10 +43,10 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     objects = CustomUserManager()
  
     USERNAME_FIELD = 'id_no'
-   
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
     class Meta:
-        verbose_name = _('Student')
-        verbose_name_plural = _('students')
+        verbose_name = 'user'
+        verbose_name_plural = "Registered Users"
         permissions = [
             ("can_manage_students", "Can manage students")
         ]
